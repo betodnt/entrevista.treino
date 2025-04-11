@@ -11,6 +11,12 @@ import { Form } from '@/components/ui/form';
 import Link from 'next/link';
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
+import { auth } from '@/firebase/client';
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from 'firebase/auth';
+import { signIn, signUp } from '@/lib/actions/auth.action';
 
 const authFormSchema = (type: FormType) => {
   return z.object({
@@ -34,20 +40,52 @@ const AuthForm = ({ type }: { type: FormType }) => {
   });
 
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      if (type === 'sign-in') {
+      if (type === 'sign-up') {
+        const { name, email, password } = values;
+        const userCredential = await createUserWithEmailAndPassword(
+          auth,
+          email,
+          password,
+        );
+        const result = await signUp({
+          uid: userCredential.user.uid,
+          name: name!,
+          email,
+          password,
+        });
+        if (!result?.success) {
+          toast.error(result?.message);
+          return;
+        }
+        toast.success('Cadastro realizado com sucesso!');
+        router.push('/sign-in');
+      } else {
+        const { email, password } = values;
+        const userCredential = await signInWithEmailAndPassword(
+          auth,
+          email,
+          password,
+        );
+        const idToken = await userCredential.user.getIdToken();
+        if (!idToken) {
+          toast.error('Erro ao fazer o login.');
+          return;
+        }
+        await signIn({
+          email,
+          idToken,
+        });
+
         toast.success('Login realizado com sucesso!');
         router.push('/');
-      } else {
-        router.push('/sign-in');
-        toast.success('Cadastro realizado com sucesso!');
       }
     } catch (error) {
       console.log(error);
       toast.error(`Esse é um erro: ${error}`);
     }
-  }
+  };
 
   const isSignIn = type === 'sign-in';
 
