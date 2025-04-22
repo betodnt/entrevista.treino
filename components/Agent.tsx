@@ -1,6 +1,9 @@
+'use client';
+
 import { cn } from '@/lib/utils';
 import Image from 'next/image';
-import React from 'react';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
 enum CallStatus {
   INACTIVE = 'INACTIVE',
@@ -9,15 +12,29 @@ enum CallStatus {
   FINISHED = 'FINISHED',
 }
 
-const Agent = ({ userName }: AgentProps) => {
-  const callStatus = CallStatus.FINISHED;
-  const isSpeaking = true;
-  const messages = [
-    'Qual é o seu nome?',
-    'Me chamo Jhon Doe, tudo bem com você!',
-  ];
+interface SavedMessage {
+  role: 'user' | 'system' | 'assistant';
+  content: string;
+}
 
-  const lastMessage = messages[messages.length - 1];
+const Agent = ({ userName, userId, type }: AgentProps) => {
+  const router = useRouter();
+  const [isSpeaking, setIsSpeaking] = useState(false);
+  const [callStatus, setCallStatus] = useState<CallStatus>(CallStatus.INACTIVE);
+  const [messages, setMessages] = useState<SavedMessage[]>([]);
+
+  useEffect(() => {
+    const onCallStart = () => setCallStatus(CallStatus.ACTIVE);
+    const onCallEnd = () => setCallStatus(CallStatus.FINISHED);
+
+    const onMessage = (message: Message) => {
+      if (message.type === 'transcript' && message.transcriptType === 'final') {
+        const newMessage = { role: message.role, content: message.transcript };
+
+        setMessages((prev) => [...prev, newMessage]);
+      }
+    };
+  }, []);
 
   return (
     <>
@@ -56,9 +73,9 @@ const Agent = ({ userName }: AgentProps) => {
                 'transition-opacity duration-500 opacity-0',
                 'animate-fadeIn opacity-100',
               )}
-              key={lastMessage}
+              key={setMessages}
             >
-              {lastMessage}
+              {messages}
             </p>
           </div>
         </div>
