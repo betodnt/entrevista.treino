@@ -89,7 +89,7 @@ export async function getCurrentUser(): Promise<User | null> {
     if (!userRecord.exists) return null;
     return {
       ...userRecord.data(),
-      uid: userRecord.id,
+      id: userRecord.id,
     } as unknown as User;
   } catch (e) {
     console.log(e);

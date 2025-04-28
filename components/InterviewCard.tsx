@@ -4,7 +4,6 @@ import Image from 'next/image';
 import { Button } from './ui/button';
 import Link from 'next/link';
 import DisplayTechIcons from './DisplayTechIcons';
-import ClientButtonLink from './ClientButtonLink';
 
 const InterviewCard = ({
   interviewId,
@@ -16,9 +15,9 @@ const InterviewCard = ({
 }: InterviewCardProps) => {
   const feedback = null as Feedback | null;
   const normalizedType = /mix/gi.test(type) ? 'Mixed' : type;
-  const formattedDate = dayjs(
-    feedback?.createdAt || createdAt || Date.now(),
-  ).format('DD/MM/YYYY');
+  const formattedDate = dayjs(feedback?.createdAt || createdAt).format(
+    'DD/MM/YYYY',
+  );
 
   return (
     <div className='card-border w-[360px] max-sm:w-full min-h-96'>
@@ -57,10 +56,17 @@ const InterviewCard = ({
         </div>
         <div className='flex flex-row justify-between'>
           <DisplayTechIcons techStack={techstack} />
-          <ClientButtonLink
-            interviewId={interviewId!}
-            hasFeedback={!!feedback}
-          />
+          <Button className='btn-primary'>
+            <Link
+              href={
+                feedback
+                  ? `/interview/${interviewId}/feedback`
+                  : `/interview/${interviewId}`
+              }
+            >
+              {feedback ? 'Ver feedback' : 'Fazer entrevista'}
+            </Link>
+          </Button>
         </div>
       </div>
     </div>
