@@ -1,5 +1,5 @@
-// import { CreateAssistantDTO } from "@vapi-ai/web/dist/api";
-// import { z } from "zod";
+import { CreateAssistantDTO } from '@vapi-ai/web/dist/api';
+import { z } from 'zod';
 
 export const mappings = {
   'react.js': 'react',
@@ -97,96 +97,96 @@ export const mappings = {
   'aws amplify': 'amplify',
 };
 
-// export const interviewer: CreateAssistantDTO = {
-//   name: "Interviewer",
-//   firstMessage:
-//     "Hello! Thank you for taking the time to speak with me today. I'm excited to learn more about you and your experience.",
-//   transcriber: {
-//     provider: "deepgram",
-//     model: "nova-2",
-//     language: "en",
-//   },
-//   voice: {
-//     provider: "11labs",
-//     voiceId: "sarah",
-//     stability: 0.4,
-//     similarityBoost: 0.8,
-//     speed: 0.9,
-//     style: 0.5,
-//     useSpeakerBoost: true,
-//   },
-//   model: {
-//     provider: "openai",
-//     model: "gpt-4",
-//     messages: [
-//       {
-//         role: "system",
-//         content: `You are a professional job interviewer conducting a real-time voice interview with a candidate. Your goal is to assess their qualifications, motivation, and fit for the role.
+export const interviewer: CreateAssistantDTO = {
+  name: 'Interviewer',
+  firstMessage:
+    'Olá! Obrigada por reservar um tempo para falar comigo hoje. Estou ansiosa para saber mais sobre você e sua experiência.',
+  transcriber: {
+    provider: 'deepgram',
+    model: 'nova-2',
+    language: 'pt-BR',
+  },
+  voice: {
+    provider: '11labs',
+    voiceId: 'sarah',
+    stability: 0.4,
+    similarityBoost: 0.8,
+    speed: 0.9,
+    style: 0.5,
+    useSpeakerBoost: true,
+  },
+  model: {
+    provider: 'openai',
+    model: 'gpt-4',
+    messages: [
+      {
+        role: 'system',
+        content: `Você é um entrevistador profissional que conduz uma entrevista de voz em tempo real com um candidato. Seu objetivo é avaliar suas qualificações, motivação e adequação à função.
 
-// Interview Guidelines:
-// Follow the structured question flow:
-// {{questions}}
+Diretrizes da entrevista:
+Siga o fluxo de perguntas estruturadas:
+{{questions}}
 
-// Engage naturally & react appropriately:
-// Listen actively to responses and acknowledge them before moving forward.
-// Ask brief follow-up questions if a response is vague or requires more detail.
-// Keep the conversation flowing smoothly while maintaining control.
-// Be professional, yet warm and welcoming:
+Envolva-se naturalmente e reaja adequadamente:
+Ouça atentamente as respostas e reconheça-as antes de prosseguir.
+Faça breves perguntas complementares se a resposta for vaga ou exigir mais detalhes.
+Mantenha a conversa fluindo sem problemas, mantendo o controle.
+Seja profissional, mas cordial e acolhedor:
 
-// Use official yet friendly language.
-// Keep responses concise and to the point (like in a real voice interview).
-// Avoid robotic phrasing—sound natural and conversational.
-// Answer the candidate’s questions professionally:
+Use uma linguagem formal, porém amigável.
+Mantenha as respostas concisas e objetivas (como em uma entrevista com voz real).
+Evite frases robóticas — fale com naturalidade e em tom de conversa.
+Responda às perguntas do candidato profissionalmente:
 
-// If asked about the role, company, or expectations, provide a clear and relevant answer.
-// If unsure, redirect the candidate to HR for more details.
+Se questionado sobre a função, a empresa ou as expectativas, forneça uma resposta clara e relevante.
+Em caso de dúvida, encaminhe o candidato ao RH para obter mais detalhes.
 
-// Conclude the interview properly:
-// Thank the candidate for their time.
-// Inform them that the company will reach out soon with feedback.
-// End the conversation on a polite and positive note.
+Conclua a entrevista adequadamente:
+Agradeça ao candidato pelo tempo dispensado.
+Informe que a empresa entrará em contato em breve com um feedback.
+Encerre a conversa de forma educada e positiva.
 
-// - Be sure to be professional and polite.
-// - Keep all your responses short and simple. Use official language, but be kind and welcoming.
-// - This is a voice conversation, so keep your responses short, like in a real conversation. Don't ramble for too long.`,
-//       },
-//     ],
-//   },
-// };
+- Certifique-se de ser profissional e educado.
+- Mantenha todas as suas respostas curtas e simples. Use linguagem formal, mas seja gentil e acolhedor.
+- Esta é uma conversa por voz, então mantenha suas respostas curtas, como em uma conversa real. Não divague por muito tempo.`,
+      },
+    ],
+  },
+};
 
-// export const feedbackSchema = z.object({
-//   totalScore: z.number(),
-//   categoryScores: z.tuple([
-//     z.object({
-//       name: z.literal("Communication Skills"),
-//       score: z.number(),
-//       comment: z.string(),
-//     }),
-//     z.object({
-//       name: z.literal("Technical Knowledge"),
-//       score: z.number(),
-//       comment: z.string(),
-//     }),
-//     z.object({
-//       name: z.literal("Problem Solving"),
-//       score: z.number(),
-//       comment: z.string(),
-//     }),
-//     z.object({
-//       name: z.literal("Cultural Fit"),
-//       score: z.number(),
-//       comment: z.string(),
-//     }),
-//     z.object({
-//       name: z.literal("Confidence and Clarity"),
-//       score: z.number(),
-//       comment: z.string(),
-//     }),
-//   ]),
-//   strengths: z.array(z.string()),
-//   areasForImprovement: z.array(z.string()),
-//   finalAssessment: z.string(),
-// });
+export const feedbackSchema = z.object({
+  totalScore: z.number(),
+  categoryScores: z.tuple([
+    z.object({
+      name: z.literal('Communication Skills'),
+      score: z.number(),
+      comment: z.string(),
+    }),
+    z.object({
+      name: z.literal('Technical Knowledge'),
+      score: z.number(),
+      comment: z.string(),
+    }),
+    z.object({
+      name: z.literal('Problem Solving'),
+      score: z.number(),
+      comment: z.string(),
+    }),
+    z.object({
+      name: z.literal('Cultural Fit'),
+      score: z.number(),
+      comment: z.string(),
+    }),
+    z.object({
+      name: z.literal('Confidence and Clarity'),
+      score: z.number(),
+      comment: z.string(),
+    }),
+  ]),
+  strengths: z.array(z.string()),
+  areasForImprovement: z.array(z.string()),
+  finalAssessment: z.string(),
+});
 
 export const interviewCovers = [
   '/adobe.png',
