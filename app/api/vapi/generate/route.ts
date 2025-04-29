@@ -13,7 +13,7 @@ export async function POST(request: Request) {
   try {
     const { text: questions } = await generateText({
       model: google('gemini-2.0-flash-001'),
-      prompt: `Prepare perguntas para uma entrevista de emprego.
+      prompt: `Fale apenas em português(pt-BR).Prepare perguntas para uma entrevista de emprego.
 A função é ${role}.
 O nível de experiência profissional é ${level}.
 Os tipos de tecnologia usada na vaga é: ${techstack}.
