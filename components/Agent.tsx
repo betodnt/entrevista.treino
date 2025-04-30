@@ -1,6 +1,7 @@
 'use client';
 
 import { interviewer } from '@/constants';
+import { createFeedback } from '@/lib/actions/general.action';
 import { cn } from '@/lib/utils';
 import { vapi } from '@/lib/vapi.sdk';
 import Image from 'next/image';
@@ -74,11 +75,13 @@ const Agent = ({
 
   const handleGenerateFeedback = async (messages: SavedMessage[]) => {
     console.log('Feedback gerado com sucesso!');
-    // TODO: Implementar a lógica para gerar o feedback
-    const { success, id } = {
-      success: true,
-      id: 'feedback-id',
-    };
+    const { success, feedbackId: id } = await createFeedback({
+      interviewId: interviewId!,
+      userId: userId!,
+      transcript: messages,
+      feedbackId,
+    });
+
     if (success && id) {
       router.push(`/interview/${interviewId}/feedback`);
     } else {
@@ -150,7 +153,7 @@ const Agent = ({
         <div className='card-border'>
           <div className='card-content'>
             <Image
-              src='/user-avatar.png'
+              src='/user-avatar.jpg'
               alt='user avatar'
               width={540}
               height={540}

@@ -100,7 +100,7 @@ export const mappings = {
 export const interviewer: CreateAssistantDTO = {
   name: 'Interviewer',
   firstMessage:
-    'Olá! Obrigada por reservar um tempo para falar comigo hoje. Estou ansiosa para saber mais sobre você e sua experiência.',
+    'Olá! Obrigada por reservar um tempo para falar comigo hoje. Estou ansiosa para saber mais sobre você e sua experiência.**Gere toda a saída textual (comentários, pontos fortes, áreas de melhoria, avaliação final) estritamente no idioma português.**',
   transcriber: {
     provider: 'deepgram',
     model: 'nova-2',
@@ -108,9 +108,9 @@ export const interviewer: CreateAssistantDTO = {
   },
   voice: {
     provider: '11labs',
-    voiceId: 'sarah',
+    voiceId: 'burt',
     stability: 0.4,
-    similarityBoost: 0.8,
+    similarityBoost: 0.7,
     speed: 0.9,
     style: 0.5,
     useSpeakerBoost: true,
@@ -158,27 +158,27 @@ export const feedbackSchema = z.object({
   totalScore: z.number(),
   categoryScores: z.tuple([
     z.object({
-      name: z.literal('Communication Skills'),
+      name: z.literal('Habilidades de comunicação'),
       score: z.number(),
       comment: z.string(),
     }),
     z.object({
-      name: z.literal('Technical Knowledge'),
+      name: z.literal('Conhecimento Técnico'),
       score: z.number(),
       comment: z.string(),
     }),
     z.object({
-      name: z.literal('Problem Solving'),
+      name: z.literal('Solução de problemas'),
       score: z.number(),
       comment: z.string(),
     }),
     z.object({
-      name: z.literal('Cultural Fit'),
+      name: z.literal('Ajuste Cultural'),
       score: z.number(),
       comment: z.string(),
     }),
     z.object({
-      name: z.literal('Confidence and Clarity'),
+      name: z.literal('Confiança e Clareza'),
       score: z.number(),
       comment: z.string(),
     }),
